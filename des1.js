@@ -1,4 +1,5 @@
 module.exports = {
+    _id: "_design/core",
     views: {
         sum: {
             map: function (doc) {

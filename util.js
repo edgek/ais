@@ -21,3 +21,16 @@ module.exports.putDoc = function (url, json) {
         console.log(body);
     });
 }
+
+module.exports.response = function (res) {
+    return function (err, dbRes, body) {
+        if (err) {
+            res.status(502).send(
+                '{"error":"bad_gateway","reason":' + '"' + 
+                    err.code + '"} \n'
+            );
+            return;
+        }
+        res.status(dbRes.statusCode).send(body);
+    }
+}

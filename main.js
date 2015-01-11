@@ -6,11 +6,13 @@ $(document).ready(function () {
             method = $("#http-method").val(),
             db = $("#db-name").val();
         
+        console.log(json);
+        
         post({url: db, data: json},
+            log,
             get.bind(null, {url: db + '/_design/des1/_view/sum'}, log, getSum),
             get.bind(null, {url: db + '/_design/des1/_view/list?limit=5'}, log),
-            get.bind(null, {url: db + '/_design/des1/_view/groupit?group_level=2'}, log),
-            log
+            get.bind(null, {url: db + '/_design/des1/_view/groupit?group_level=2'}, log)
         );
     });
 
@@ -69,8 +71,6 @@ $(document).ready(function () {
         }
 
         json = JSON.stringify(obj);
-        //console.log(obj);
-        console.log(json);
         return json;
     }
 
@@ -81,6 +81,9 @@ $(document).ready(function () {
             url: obj.url,
             type: 'POST',
             data: obj.data,
+            headers: {
+                'Content-Type': 'application/json'
+            },
             success: function (data) {
                 for (var i = 0; i < args.length; i++) {
                     if (typeof args[i] == 'function') {

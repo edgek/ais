@@ -1,35 +1,45 @@
-var request = require('request');
+var request = require('request'),
+    response = require('./util.js').response;
 
-module.exports = function (config, app) {
+module.exports = function (dbServer, app) {
     app.get('/:db/_design/:design/_view/:view', function (req, res) {
+        var callback = response(res);
         request(
             {
                 method: 'GET',
-                url: config.db_server + '/' + req.params.db + '/_design/' +
+                url: dbServer + '/' + req.params.db + '/_design/' +
                     req.params.design + '/_view/' + req.params.view,
                 qs: {
                     limit: req.query.limit,
                     group_level: req.query.group_level
                 }  
             },
-            function (err, dbRes, body) {
-                res.status(dbRes.statusCode).send(body);
-            }
+            callback
+        );
+    });
+
+    app.get('/:db/_design/:design', function (req, res) {
+        var callback = response(res);
+        request(
+            {
+                method: 'GET',
+                url: dbServer + '/' + req.params.db + '/_design/' +
+                    req.params.design  
+            },
+            callback
         );
     });
 
     app.put('/:db/_design/:design', function (req, res) {
-        console.log(req.body);
+        var callback = response(res);
         request(
             {
                 method: 'PUT',
-                url: config.db_server + '/' + req.params.db + '/_design/' +
+                url: dbServer + '/' + req.params.db + '/_design/' +
                     req.params.design,
                 json: req.body    
             },
-            function (err, dbRes, body) {
-                res.status(dbRes.statusCode).send(body);
-            }
+            callback
         );
     });
 

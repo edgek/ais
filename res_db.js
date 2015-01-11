@@ -1,39 +1,47 @@
-var request = require('request');
+var request = require('request'),
+    design_doc = require('./des1.js'),
+    response = require('./util.js').response;
 
-module.exports = function (config, app) {
+module.exports = function (dbServer, app) {
     app.put('/:name', function (req, res) {
-        request(
-            {
-                method: 'PUT',
-                url: config.db_server + '/' + req.params.name
-            },
-            function (err, couchRes, body) {
-                res.status(couchRes.statusCode).send(body);
-            }
-        );    
+        var url = dbServer + '/' + req.params.name;
+
+        request.put(url)
+            .on('response', function (dbRes) {
+                if (dbRes.statusCode == 201) {
+                    
+                    // Post default design document to database
+                    request({method: 'POST', url: url, json: design_doc})
+                        .on('response', function (dbRes) {
+                            res.status(dbRes.statusCode).send(dbRes);            
+                        });
+                }
+                else {
+                    res.status(dbRes.statusCode).send(dbRes);
+                }
+            
+            }); // end on DB response    
     });
 
     app.get('/:name', function (req, res) {
+        var callback = response(res);
         request(
             {
                 method: 'GET',
-                url: config.db_server + '/' + req.params.name
+                url: dbServer + '/' + req.params.name
             },
-            function (err, couchRes, body) {
-                res.status(couchRes.statusCode).send(body);
-            }
+            callback
         );    
     });
 
     app.delete('/:name', function (req, res) {
+        var callback = response(res);
         request(
             {
                 method: 'DELETE',
-                url: config.db_server + '/' + req.params.name
+                url: dbServer + '/' + req.params.name
             },
-            function (err, couchRes, body) {
-                res.status(couchRes.statusCode).send(body);
-            }
+            callback
         );    
     });
 

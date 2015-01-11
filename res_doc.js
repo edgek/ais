@@ -1,30 +1,29 @@
-var request = require('request');
+var request = require('request'),
+    response = require('./util.js').response;
 
-module.exports = function (config, app) {
+module.exports = function (dbServer, app) {
     app.get('/:db/:doc', function (req, res) {
+        var callback = response(res);
         request(
             {
                 method: 'GET',
-                url: config.db_server + '/' + req.params.db + '/' +
+                url: dbServer + '/' + req.params.db + '/' +
                     req.params.doc   
             },
-            function (err, dbRes, body) {
-                res.status(dbRes.statusCode).send(body);
-            }
+            callback
         );
     });
 
     app.post('/:db', function (req, res) {
-        //console.log(req.body);
+        var callback = response(res);
+        console.log(req.body);
         request(
             {
                 method: 'POST',
-                url: config.db_server + '/' + req.params.db,
+                url: dbServer + '/' + req.params.db,
                 json: req.body
             },
-            function (err, dbRes, body) {
-                res.status(dbRes.statusCode).send(body);
-            }
+            callback
         );
     });
 
