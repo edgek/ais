@@ -3,15 +3,22 @@
 <body>
     <script src="jquery.js"></script>
     <script src="main.js"></script>
+    <script src="./optparse-js/lib/optparse.js"></script>
+    <script src="parser.js"></script>
     <style>
-        * {border: 1px solid black;}
-        body {font-size: .75em; font-family: sans-serif;}
-        input {display: block; margin-bottom: 15px;}
-        form {height: 350px;}
-        .form-block {height: 300px; border: 0px solid black; width: 150px;
-            float: left;}
+        /** {border: 1px solid black;}*/
+        body {font-family: sans-serif;}
+        /*input {display: block; margin-bottom: 15px;}*/
+        /*form {height: 350px;}*/
+        /*.form-block {height: 300px; border: 0px solid black; width: 150px;*/
+            /*float: left;}*/
+        #full-input {display: inline; width: 400px; height: 2em; padding-left: 5px;}
+        button {height: 2em;}    
     </style>
     
+    <input type="text" id="full-input" name="full-input" value="dr -t -a 50.00 -n Amazon.com --category Leisure"></input>
+    <button type="button" id="full-input-submit">Submit</button>
+<!--
     <form id="test-form">
         <button type="button" id="submit">Submit</button><br><br>
 
@@ -58,9 +65,9 @@
 
             <label for="to-name">To-Name:</label>
             <input type="text" id="to-name" name="to-name" value="Amazon.com"></input>
-        </div>    
-
-        
+        </div>        
     </form>
+
+-->    
 </body>
 </html>

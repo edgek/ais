@@ -16,7 +16,6 @@ module.exports = function (dbServer, app) {
 
     app.post('/:db', function (req, res) {
         var callback = response(res);
-        console.log(req.body);
         request(
             {
                 method: 'POST',
