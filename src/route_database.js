@@ -1,6 +1,6 @@
 var request = require('request'),
-    design_doc = require('./des1.js'),
-    response = require('./util.js').response;
+    design_doc = require('./design_core.js'),
+    response = require('./standardResponse.js');
 
 module.exports = function (dbServer, app) {
     app.put('/:name', function (req, res) {

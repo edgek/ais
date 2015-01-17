@@ -1,6 +1,6 @@
 var request = require('request');
 
-module.exports.updateDoc = function (url, json) {
+module.exports = function (url, json) {
     request.get(url, function (err, dbRes, body) {
         var bodyParse;
         

@@ -1,5 +1,5 @@
 var request = require('request'),
-    response = require('./util.js').response;
+    response = require('./standardResponse.js');
 
 module.exports = function (dbServer, app) {
     app.get('/:db/:doc', function (req, res) {

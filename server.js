@@ -1,13 +1,18 @@
 var express = require('express'),
 	app = express(),	
     bodyParser = require('body-parser'),
-    res_db = require('./res_db.js'),
-    res_doc = require('./res_doc.js'),
-    res_design = require('./res_design.js'),
+    res_db = require('./src/route_database.js'),
+    res_doc = require('./src/route_document.js'),
+    res_design = require('./src/route_design.js'),
     config = require('./config.json');
+/*
+app.use(function (req, res, next) {
+    console.log('Request Time:', Date.now());
+    next();
+});
+*/
 
-// Set middleware
-app.use(express.static(__dirname)); // This needs to come first I guess.
+app.use(express.static(__dirname));
 app.use(bodyParser.json({type: "application/json"}));
 
 // Set routes
