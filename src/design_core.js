@@ -1,3 +1,7 @@
+/*
+ * Defines database core views.
+ */
+
 module.exports = {
     _id: "_design/core",
     views: {

@@ -1,3 +1,7 @@
+/*
+ * Defines routes for HTTP requests of database resources.
+ */
+
 var request = require('request'),
     design_doc = require('./design_core.js'),
     response = require('./standardResponse.js');
@@ -6,6 +10,7 @@ module.exports = function (dbServer, app) {
     app.put('/:name', function (req, res) {
         var url = dbServer + '/' + req.params.name;
 
+        // Attempt to make new database
         request.put(url)
             .on('response', function (dbRes) {
                 if (dbRes.statusCode == 201) {

@@ -1,3 +1,8 @@
+/*
+ * Gets document from database if it exists and updates it. Otherwise it creates
+ * a new one. 
+ */
+
 var request = require('request');
 
 module.exports = function (url, json) {

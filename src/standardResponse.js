@@ -1,3 +1,7 @@
+/*
+ * A callback function to handle typical response from CouchDB.
+ */
+
 module.exports = function (res) {
     return function (err, dbRes, body) {
         if (err) {

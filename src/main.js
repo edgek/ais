@@ -9,14 +9,14 @@ $(document).ready(function () {
             elements: {
                 data: '#grid'
             }
-        }
-
-    console.log("Ready");
+        };
 
     $("#full-input-submit").on("click", function () {
         var input = getInput(),
+            // Parse command and options entered on input similar to Unix shell
             parsedInput = parser.runParser(input);
 
+        // Execute command
         switch (parsedInput.command) {
             case 'dr':
                 if (isValidDrCommand(parsedInput)) {
@@ -39,17 +39,19 @@ $(document).ready(function () {
         }
     });
 
+    // Display data on page after making requests to database 
     function view(json) {
         var targetElement = $(config.elements.data);
         targetElement.html(makeTable(json));
     }
 
+    // Convert JSON response to HTML table
     function makeTable(json) {
         var obj = JSON.parse(json),
             table = $("<table>"),
-            row, value;
+            row, value, i;
 
-        for (var i = 0; i < obj.rows.length; i++) {
+        for (i = 0; i < obj.rows.length; i++) {
             row = $("<tr>");
             row.append("<td>" + obj.rows[i].key + "</td>");
             value = obj.rows[i].value;

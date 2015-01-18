@@ -1,3 +1,7 @@
+/*
+ * Defines routes for HTTP requests of database design views.
+ */
+
 var request = require('request'),
     response = require('./standardResponse.js');
 

@@ -1,3 +1,8 @@
+/*
+ * Parses commands and options similar to Unix shell.
+ * The input must be split into an array of strings prior to parsing.
+ */
+
 function getParser () {
     var SWITCHES = [
         ['-a', '--amount [NUMBER]', "Amount"],
@@ -33,7 +38,6 @@ function getParser () {
     parser.on('transaction', function(opt) {
         parsedInput.type = opt;
     });
-
 
     return parser;
 }
