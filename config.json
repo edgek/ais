@@ -1,6 +1,6 @@
 {
-	"host": "http://localhost",
-	"port": 3000,
-	"db": "http://localhost:5984/books",
+    "host": "http://localhost",
+    "port": 3000,
+    "db": "http://localhost:5984/books",
     "db_server": "http://localhost:5984"
 }

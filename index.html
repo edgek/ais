@@ -5,16 +5,31 @@
     <script src="./src/main.js"></script>
     <script src="./src/vendor/optparse.js"></script>
     <script src="./src/parser.js"></script>
+    <script src="./src/vendor/handlebars-v2.0.0.js"></script>
+
     <style>
         /** {border: 1px solid black;}*/
         body {font-family: sans-serif;}
         #full-input {display: inline; width: 400px; height: 2em; padding-left: 5px;}
         button {height: 2em;}
+        table {border-collapse: collapse;}
+        td, th {border: 1px solid black; padding: 3px; font-size: .8em;}
     </style>
     
     <input type="text" id="full-input" name="full-input" 
         value="dr -t -a 50.00 -n Amazon.com --category Leisure">
     </input>
-    <button type="button" id="full-input-submit">Submit</button>    
+    <button type="button" id="full-input-submit">Submit</button>
+    <div id="grid"></div> 
+<!--
+    <script id="entry-template" type="text/x-handlebars-template">
+        <div class="entry">
+            <h1>{{title}}</h1>
+            <div class="body">
+                {{body}}
+            </div>
+        </div>
+    </script>
+-->
 </body>
 </html>

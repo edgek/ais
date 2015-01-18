@@ -1,31 +1,71 @@
 $(document).ready(function () {
     var parser = getParser(),
-        db = 'test3';
+        config = {
+            db: 'test3',
+            views: {
+                sum: '/_design/des1/_view/sum',
+                ls: '/_design/des1/_view/list?limit=5'
+            },
+            elements: {
+                data: '#grid'
+            }
+        }
 
     console.log("Ready");
 
     $("#full-input-submit").on("click", function () {
         var input = getInput(),
-            parsedInput = parser.runParser(input),
-            command = parsedInput.command;
+            parsedInput = parser.runParser(input);
 
-        if (command == 'dr') {
-            if (isValidDrCommand(parsedInput)) {
-                post(db, JSON.stringify(parsedInput), log);    
+        switch (parsedInput.command) {
+            case 'dr':
+                if (isValidDrCommand(parsedInput)) {
+                    post(config.db, JSON.stringify(parsedInput), log);    
+                }
+                else {
+                    throw "Invalid dr command";
+                }
+                break;
+            case 'sum':
+                if (isValidSumCommand(parsedInput)) {
+                    get(config.db + config.views.sum, view);
+                }
+                break; 
+            case 'ls':
+                if (isValidLsCommand(parsedInput)) {
+                    get(config.db + config.views.ls, view);
+                }
+                break;
+        }
+    });
+
+    function view(json) {
+        var targetElement = $(config.elements.data);
+        targetElement.html(makeTable(json));
+    }
+
+    function makeTable(json) {
+        var obj = JSON.parse(json),
+            table = $("<table>"),
+            row, value;
+
+        for (var i = 0; i < obj.rows.length; i++) {
+            row = $("<tr>");
+            row.append("<td>" + obj.rows[i].key + "</td>");
+            value = obj.rows[i].value;
+            if (value instanceof Array) {
+                value.forEach(function (element) {
+                    row.append("<td>" + element + "</td>");        
+                });
             }
             else {
-                throw "Invalid dr command";
+                row.append("<td>" + value + "</td>");  
             }
-                
-        } 
-        else if (command == 'sum') {
-            if (isValidSumCommand(parsedInput)) {
-                get(db + '/_design/des1/_view/sum', log);
-            }
+            table.append(row);    
         }
-        
-        //console.log(parsedInput);
-    });
+
+        return table;
+    }
 
     function getInput() {
         var val = $("#full-input").val();
@@ -37,6 +77,10 @@ $(document).ready(function () {
     }
 
     function isValidSumCommand(obj) {
+        return true;
+    }
+
+    function isValidLsCommand(obj) {
         return true;
     }
 

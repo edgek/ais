@@ -1,5 +1,5 @@
 var express = require('express'),
-	app = express(),	
+    app = express(),	
     bodyParser = require('body-parser'),
     res_db = require('./src/route_database.js'),
     res_doc = require('./src/route_document.js'),
@@ -21,7 +21,7 @@ res_doc(config.db_server, app);
 res_design(config.db_server, app);
 
 app.listen(config.port, function () {
-	console.log("Listening");
+    console.log("Listening");
 });
 
 
